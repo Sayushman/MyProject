@@ -1,0 +1,158 @@
+.custom-header {
+    display: flex;
+    align-items: center;
+    background-color: #01132e;
+    height: 80px;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-bottom: 3px solid #1a365d;
+}
+
+.header-section {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    height: 60px;
+    border-right: 1px solid rgba(255, 255, 255, 0.15);
+}
+.header-section:last-child {
+    border-right: none;
+}
+
+/* Brand Section */
+.brand-section {
+    flex: 2;
+    padding-left: 30px;
+}
+
+.brand-logo {
+    height: 60px;
+    width: 100px;
+    object-fit: contain;
+    margin-right: 20px;
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.brand-text h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 0.5px;
+}
+
+.brand-text h2 {
+    font-size: 15px;
+    font-weight: 400;
+    margin: 3px 0 0 0;
+    color: #e2e8f0;
+}
+
+/* Plant Section */
+.plant-section {
+    flex: 1.2;
+}
+
+.header-icon {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-right: 15px;
+}
+
+.plant-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.plant-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 2px;
+    margin-top: 2px;
+}
+
+.plant-subtitle {
+    font-size: 17px;
+    color: #cbd5e1;
+}
+
+/* Time Section */
+.time-section {
+    flex: 1.5;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.time-text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-left: 16px;
+}
+
+.datetime-row {
+    display: flex;
+    align-items: center;
+    font-size: 23px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    margin-left: 8px;
+    margin-top: 2px;
+}
+
+.calendar-icon {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    margin-right: 15px;
+}
+
+.separator {
+    margin: 0 15px;
+    color: #475569;
+}
+
+.shift-badge {
+    background-color: #0056b3;
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+/* Safety Section */
+.safety-section {
+    flex: 1;
+}
+
+.safety-icon {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+    margin-right: 15px;
+}
+
+.safety-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.safety-title {
+    color: #22c55e;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.safety-subtitle {
+    font-size: 14px;
+    color: white;
+}

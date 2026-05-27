@@ -1,0 +1,77 @@
+@rendermode InteractiveServer
+@implements IDisposable
+@using System.Timers
+
+<header class="custom-header">
+    <div class="header-section brand-section">
+        <div class="brand-logo-container">
+            <img src="logo.png" class="brand-logo" />
+        </div>
+        <div class="brand-text">
+            <h1>HINDALCO INDUSTRIES LIMITED</h1>
+            <h2>YARD MANAGEMENT SYSTEM (YMS)</h2>
+        </div>
+    </div>
+
+    <div class="header-section plant-section">
+        <img src="warehouse.png" class="header-icon" />
+        <div class="plant-text">
+            <span class="plant-title">Taloja Plant</span>
+            <span class="plant-subtitle">Warehouse - Finished Goods</span>
+        </div>
+    </div>
+
+    <div class="header-section time-section">
+        <img src="calender.png" class="calendar-icon" />
+        <div class="time-text-container">
+            <div class="datetime-row">            
+                <span class="date-text">@_currentTime.ToString("dd-MMM-yyyy")</span>
+                <span class="separator">|</span>
+                <span class="time-text">@_currentTime.ToString("hh:mm tt")</span>
+            </div>
+            <div class="shift-badge">
+                SHIFT : @CurrentShift
+            </div>
+        </div>
+    </div>
+
+    <div class="header-section safety-section">
+        <img src="safety.png" class="safety-icon" />
+        <div class="safety-text">
+            <span class="safety-title">SAFETY FIRST</span>
+            <span class="safety-subtitle">Target Zero Harm</span>
+        </div>
+    </div>
+</header>
+
+@code {
+    private Timer? _timer;
+    private DateTime _currentTime = DateTime.Now;
+
+    protected override void OnInitialized()
+    {
+        _timer = new Timer(1000);
+        _timer.Elapsed += (s, e) =>
+        {
+            _currentTime = DateTime.Now;
+            InvokeAsync(StateHasChanged);
+        };
+        _timer.Start();
+    }
+
+    public void Dispose()
+    {
+        _timer?.Dispose();
+    }
+
+    private string CurrentShift
+    {
+        get
+        {
+            if (_currentTime.Hour >= 6 && _currentTime.Hour < 18)
+                return "DAY (06:00 AM - 06:00 PM)";
+            else
+                return "NIGHT (06:00 PM - 06:00 AM)";
+        }
+    }
+}

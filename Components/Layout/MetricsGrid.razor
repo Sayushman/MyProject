@@ -1,0 +1,96 @@
+@using MyProject.Services
+@inject VehicleMetricsService MetricsService
+@implements IDisposable
+@rendermode InteractiveServer
+
+<div class="top-metrics-container">
+    <div class="top-metrics-grid">
+        <div class="top-metric-box" style="background-color: #0c4892;">
+            <div class="top-icon-placeholder">
+                <img src="" class="metric-icon" alt="" />
+            </div>
+            <div class="top-metric-content">
+                <div class="top-metric-title">TOTAL VEHICLES</div>
+                <div class="top-metric-value">@MetricsService.CurrentMetrics.TotalVehicles</div>
+                <div class="top-metric-trend">vs Yesterday <span class="@(MetricsService.CurrentMetrics.TotalVehiclesTrend >= 0 ? "trend-up" : "trend-down")">@Math.Abs(MetricsService.CurrentMetrics.TotalVehiclesTrend)%</span></div>
+            </div>
+        </div>
+        <div class="top-metric-box" style="background-color: #3b8229;">
+            <div class="top-icon-placeholder">
+                <img src="" class="metric-icon" alt="" />
+            </div>
+            <div class="top-metric-content">
+                <div class="top-metric-title">INWARD VEHICLES</div>
+                <div class="top-metric-value">@MetricsService.CurrentMetrics.InwardVehicles</div>
+                <div class="top-metric-trend">vs Yesterday <span class="@(MetricsService.CurrentMetrics.InwardVehiclesTrend >= 0 ? "trend-up" : "trend-down")">@Math.Abs(MetricsService.CurrentMetrics.InwardVehiclesTrend)%</span></div>
+            </div>
+        </div>
+        <div class="top-metric-box" style="background-color: #a97b15;">
+            <div class="top-icon-placeholder">
+                <img src="" class="metric-icon" alt="" />
+            </div>
+            <div class="top-metric-content">
+                <div class="top-metric-title">OUTWARD VEHICLES</div>
+                <div class="top-metric-value">@MetricsService.CurrentMetrics.OutwardVehicles</div>
+                <div class="top-metric-trend">vs Yesterday <span class="@(MetricsService.CurrentMetrics.OutwardVehiclesTrend >= 0 ? "trend-up" : "trend-down")">@Math.Abs(MetricsService.CurrentMetrics.OutwardVehiclesTrend)%</span></div>
+            </div>
+        </div>
+        <div class="top-metric-box" style="background-color: #5e387d;">
+            <div class="top-icon-placeholder">
+                <img src="" class="metric-icon" alt="" />
+            </div>
+            <div class="top-metric-content">
+                <div class="top-metric-title">VEHICLES IN YARD</div>
+                <div class="top-metric-value">@MetricsService.CurrentMetrics.VehiclesInYard</div>
+                <div class="top-metric-trend">vs Yesterday <span class="@(MetricsService.CurrentMetrics.VehiclesInYardTrend >= 0 ? "trend-up" : "trend-down")">@Math.Abs(MetricsService.CurrentMetrics.VehiclesInYardTrend)%</span></div>
+            </div>
+        </div>
+        <div class="top-metric-box" style="background-color: #135376;">
+            <div class="top-icon-placeholder">
+                <img src="" class="metric-icon" alt="" />
+            </div>
+            <div class="top-metric-content">
+                <div class="top-metric-title">COMPLETED DISPATCH</div>
+                <div class="top-metric-value">@MetricsService.CurrentMetrics.CompletedDispatch</div>
+                <div class="top-metric-trend">vs Yesterday <span class="@(MetricsService.CurrentMetrics.CompletedDispatchTrend >= 0 ? "trend-up" : "trend-down")">@Math.Abs(MetricsService.CurrentMetrics.CompletedDispatchTrend)%</span></div>
+            </div>
+        </div>
+        <div class="top-metric-box" style="background-color: #a92d27;">
+            <div class="top-icon-placeholder">
+                <img src="" class="metric-icon" alt="" />
+            </div>
+            <div class="top-metric-content">
+                <div class="top-metric-title">PENDING DISPATCH</div>
+                <div class="top-metric-value">@MetricsService.CurrentMetrics.PendingDispatch</div>
+                <div class="top-metric-trend">vs Yesterday <span class="@(MetricsService.CurrentMetrics.PendingDispatchTrend >= 0 ? "trend-up" : "trend-down")">@Math.Abs(MetricsService.CurrentMetrics.PendingDispatchTrend)%</span></div>
+            </div>
+        </div>
+        <div class="top-metric-box" style="background-color: #092947;">
+            <div class="top-icon-placeholder">
+                <img src="" class="metric-icon" alt="" />
+            </div>
+            <div class="top-metric-content">
+                <div class="top-metric-title">AVERAGE TAT</div>
+                <div class="top-metric-value">@MetricsService.CurrentMetrics.AverageTat.ToString("0.00")</div>
+                <div class="top-metric-trend">Hrs</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        MetricsService.OnDataUpdated += UpdateUI;
+    }
+
+    private void UpdateUI()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        MetricsService.OnDataUpdated -= UpdateUI;
+    }
+}

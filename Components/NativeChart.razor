@@ -1,0 +1,74 @@
+@using MyProject.Models
+
+<div class="chart-container">
+    <svg viewBox="0 0 500 200" class="chart-svg">
+        <!-- Grid lines -->
+        @for (int i = 0; i <= 4; i++)
+        {
+            double y = 200 - (i * 50);
+            <line x1="0" y1="@y" x2="500" y2="@y" stroke="#444" stroke-dasharray="4" />
+            @((MarkupString)$"<text x='5' y='{y - 5}' fill='#888' font-size='12' font-family='sans-serif'>{i * 25}%</text>")
+        }
+
+        @if (Data != null && Data.Any())
+        {
+            <!-- Line representing the data -->
+            <polyline points="@GetPointsString()" fill="none" stroke="@StrokeColor" stroke-width="3" />
+            
+            <!-- Points on the line -->
+            @foreach (var point in GetPoints())
+            {
+                <circle cx="@point.x" cy="@point.y" r="4" fill="@StrokeColor" />
+            }
+        }
+    </svg>
+</div>
+
+<style>
+    .chart-container {
+        width: 100%;
+        max-width: 600px;
+        background: #1e1e2e;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        margin-bottom: 20px;
+    }
+    .chart-svg {
+        width: 100%;
+        height: auto;
+    }
+</style>
+
+@code {
+    [Parameter] public IEnumerable<double>? Data { get; set; }
+    [Parameter] public string StrokeColor { get; set; } = "#ff007f";
+
+    private List<(double x, double y)> GetPoints()
+    {
+        var points = new List<(double x, double y)>();
+        if (Data == null || !Data.Any()) return points;
+
+        var list = Data.ToList();
+        double count = list.Count;
+        double width = 500;
+        double height = 200;
+
+        for (int i = 0; i < count; i++)
+        {
+            double x = (i / (count - 1)) * width;
+            double value = list[i];
+            // Value is 0-100, height is 200
+            double y = height - ((value / 100.0) * height);
+            points.Add((x, y));
+        }
+
+        return points;
+    }
+
+    private string GetPointsString()
+    {
+        var points = GetPoints();
+        return string.Join(" ", points.Select(p => $"{p.x},{p.y}"));
+    }
+}

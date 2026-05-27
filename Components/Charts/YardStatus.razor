@@ -1,0 +1,72 @@
+@using MyProject.Services
+@using Radzen
+@using Radzen.Blazor
+@inject VehicleMetricsService MetricsService
+@implements IDisposable
+
+<div class="chart-card">
+    <div class="chart-header">
+        <h3>YARD STATUS</h3>
+        <select class="time-filter"><option>Today</option></select>
+    </div>
+    <RadzenChart>
+        <RadzenBarSeries Data="@MetricsService.YardStatus" CategoryProperty="Category" ValueProperty="Value" />
+        <RadzenBarOptions Radius="2" />
+        <RadzenValueAxis Min="0" Max="10" Step="2">
+            <RadzenGridLines Visible="true" Stroke="#ffffff20" />
+            <RadzenAxisTitle Text="No. of Vehicles" />
+        </RadzenValueAxis>
+        <RadzenCategoryAxis>
+            <RadzenGridLines Visible="false" />
+        </RadzenCategoryAxis>
+        <RadzenLegend Visible="false" />
+    </RadzenChart>
+</div>
+
+<style>
+    .chart-card {
+        background-color: #0f172a;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    }
+    .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+    .chart-header h3 {
+        color: white;
+        font-size: 14px;
+        font-weight: 700;
+        margin: 0;
+        letter-spacing: 0.5px;
+    }
+    .time-filter {
+        background: #1e293b;
+        color: white;
+        border: 1px solid #334155;
+        border-radius: 4px;
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+</style>
+
+@code {
+    protected override void OnInitialized()
+    {
+        MetricsService.OnDataUpdated += UpdateUI;
+    }
+
+    private void UpdateUI()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        MetricsService.OnDataUpdated -= UpdateUI;
+    }
+}
