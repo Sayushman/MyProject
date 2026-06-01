@@ -11,65 +11,77 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = MyProject
 build_property.RootNamespace = MyProject
-build_property.ProjectDir = /home/aayu/Documents/Projects/ASP-application/MyProject/
+build_property.ProjectDir = /home/aayu/Documents/SIGNODE/Hindalco/MyProject/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 9.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /home/aayu/Documents/Projects/ASP-application/MyProject
+build_property.MSBuildProjectDirectory = /home/aayu/Documents/SIGNODE/Hindalco/MyProject
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 10.0
 build_property.EnableCodeStyleSeverity = 
 
-[/home/aayu/Documents/Projects/ASP-application/MyProject/Components/App.razor]
+[/home/aayu/Documents/SIGNODE/Hindalco/MyProject/Components/App.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9BcHAucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/aayu/Documents/Projects/ASP-application/MyProject/Components/Charts/ChartsGrid.razor]
+[/home/aayu/Documents/SIGNODE/Hindalco/MyProject/Components/Charts/BottomCharts.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9DaGFydHMvQm90dG9tQ2hhcnRzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/aayu/Documents/SIGNODE/Hindalco/MyProject/Components/Charts/BottomTables.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9DaGFydHMvQm90dG9tVGFibGVzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/aayu/Documents/SIGNODE/Hindalco/MyProject/Components/Charts/ChartsGrid.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9DaGFydHMvQ2hhcnRzR3JpZC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/aayu/Documents/Projects/ASP-application/MyProject/Components/Charts/DockUtilization.razor]
+[/home/aayu/Documents/SIGNODE/Hindalco/MyProject/Components/Charts/DockUtilization.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9DaGFydHMvRG9ja1V0aWxpemF0aW9uLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/aayu/Documents/Projects/ASP-application/MyProject/Components/Charts/VehicleMovementTrend.razor]
+[/home/aayu/Documents/SIGNODE/Hindalco/MyProject/Components/Charts/VehicleMovementTrend.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9DaGFydHMvVmVoaWNsZU1vdmVtZW50VHJlbmQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/aayu/Documents/Projects/ASP-application/MyProject/Components/Charts/YardStatus.razor]
+[/home/aayu/Documents/SIGNODE/Hindalco/MyProject/Components/Charts/YardStatus.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9DaGFydHMvWWFyZFN0YXR1cy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/aayu/Documents/Projects/ASP-application/MyProject/Components/NativeChart.razor]
+[/home/aayu/Documents/SIGNODE/Hindalco/MyProject/Components/Layout/DashboardFooter.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9MYXlvdXQvRGFzaGJvYXJkRm9vdGVyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/aayu/Documents/SIGNODE/Hindalco/MyProject/Components/NativeChart.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9OYXRpdmVDaGFydC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/aayu/Documents/Projects/ASP-application/MyProject/Components/Pages/Home.razor]
+[/home/aayu/Documents/SIGNODE/Hindalco/MyProject/Components/Pages/Home.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Ib21lLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/aayu/Documents/Projects/ASP-application/MyProject/Components/Routes.razor]
+[/home/aayu/Documents/SIGNODE/Hindalco/MyProject/Components/Routes.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9Sb3V0ZXMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/aayu/Documents/Projects/ASP-application/MyProject/Components/_Imports.razor]
+[/home/aayu/Documents/SIGNODE/Hindalco/MyProject/Components/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9fSW1wb3J0cy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/aayu/Documents/Projects/ASP-application/MyProject/Components/Layout/Header.razor]
+[/home/aayu/Documents/SIGNODE/Hindalco/MyProject/Components/Layout/Header.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9MYXlvdXQvSGVhZGVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = b-ztv1n4l55d
 
-[/home/aayu/Documents/Projects/ASP-application/MyProject/Components/Layout/MainLayout.razor]
+[/home/aayu/Documents/SIGNODE/Hindalco/MyProject/Components/Layout/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9MYXlvdXQvTWFpbkxheW91dC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-58t9d82l1j
 
-[/home/aayu/Documents/Projects/ASP-application/MyProject/Components/Layout/MetricsGrid.razor]
+[/home/aayu/Documents/SIGNODE/Hindalco/MyProject/Components/Layout/MetricsGrid.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9MYXlvdXQvTWV0cmljc0dyaWQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-guhjnnuej7
 
-[/home/aayu/Documents/Projects/ASP-application/MyProject/Components/Layout/ReconnectModal.razor]
+[/home/aayu/Documents/SIGNODE/Hindalco/MyProject/Components/Layout/ReconnectModal.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9MYXlvdXQvUmVjb25uZWN0TW9kYWwucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-qpvsw86ft8

@@ -1,0 +1,199 @@
+@using Radzen
+@using Radzen.Blazor
+@using MyProject.Models
+@using MyProject.Services
+@inject VehicleMetricsService MetricsService
+@implements IDisposable
+
+<div class="bottom-charts-container">
+    <!-- DAILY TAT PERFORMANCE -->
+    <div class="chart-card">
+        <div class="chart-header">
+            <span>DAILY TAT PERFORMANCE</span>
+            <span class="header-dropdown">Today <i class="rz-icon rz-icon-keyboard_arrow_down"></i></span>
+        </div>
+        <div class="chart-content">
+            <RadzenChart style="height: 100%; width: 100%;">
+                <RadzenLineSeries Smooth="true" Data="@MetricsService.DailyTatPerformance" CategoryProperty="DayLabel" Title="Avg TAT (Hrs)" ValueProperty="AvgTat" Stroke="#0c4892">
+                    <RadzenMarkers MarkerType="@MarkerType.Circle" Fill="#0c4892" Size="4" />
+                </RadzenLineSeries>
+                <RadzenLineSeries Smooth="false" Data="@MetricsService.DailyTatPerformance" CategoryProperty="DayLabel" Title="Target TAT (Hrs)" LineType="@LineType.Dashed" ValueProperty="TargetTat" Stroke="#3b8229">
+                    <RadzenMarkers MarkerType="@MarkerType.None" />
+                </RadzenLineSeries>
+                <RadzenCategoryAxis Padding="10">
+                    <RadzenGridLines Visible="false" />
+                    <RadzenTicks Stroke="#3a4767" />
+                </RadzenCategoryAxis>
+                <RadzenValueAxis Min="0" Max="4" Step="1">
+                    <RadzenGridLines Visible="true" Stroke="#23315e" />
+                    <RadzenAxisTitle Text="Hrs" />
+                </RadzenValueAxis>
+                <RadzenLegend Position="@LegendPosition.Top" />
+                <RadzenChartTooltipOptions />
+            </RadzenChart>
+        </div>
+    </div>
+
+    <!-- DELAY ANALYSIS -->
+    <div class="chart-card">
+        <div class="chart-header">
+            <span>DELAY ANALYSIS</span>
+        </div>
+        <div class="chart-content donut-chart-container">
+            <RadzenChart style="height: 100%; width: 100%;">
+                <RadzenDonutSeries Data="@MetricsService.DelayAnalysis" CategoryProperty="Category" ValueProperty="Value" TotalAngle="360" StartAngle="0" Fills="@delayFills">
+                    <TitleTemplate>
+                        <div class="donut-title">
+                            <span class="donut-label">TOTAL</span>
+                            <span class="donut-value">@MetricsService.DelayAnalysis.Sum(d => d.Value)</span>
+                        </div>
+                    </TitleTemplate>
+                    <ChildContent>
+                        <RadzenSeriesDataLabels Visible="true" />
+                    </ChildContent>
+                </RadzenDonutSeries>
+                <RadzenLegend Position="@LegendPosition.Right" />
+            </RadzenChart>
+        </div>
+    </div>
+
+    <!-- INWARD VS OUTWARD -->
+    <div class="chart-card">
+        <div class="chart-header">
+            <span>INWARD vs OUTWARD (TODAY)</span>
+        </div>
+        <div class="chart-content">
+            <RadzenChart style="height: 100%; width: 100%;">
+                <RadzenColumnSeries Data="@MetricsService.InwardVsOutwardToday" CategoryProperty="Category" ValueProperty="Value" Title="Vehicles" Fills="@inwardOutwardFills">
+                    <RadzenSeriesDataLabels Visible="true" />
+                </RadzenColumnSeries>
+                <RadzenColumnOptions Radius="0" Width="40" />
+                <RadzenCategoryAxis>
+                    <RadzenGridLines Visible="false" />
+                </RadzenCategoryAxis>
+                <RadzenValueAxis Min="0" Max="80" Step="20">
+                    <RadzenGridLines Visible="true" Stroke="#23315e" />
+                </RadzenValueAxis>
+                <RadzenLegend Visible="false" />
+            </RadzenChart>
+        </div>
+    </div>
+
+    <!-- VEHICLE TYPE BREAKUP -->
+    <div class="chart-card">
+        <div class="chart-header">
+            <span>VEHICLE TYPE BREAKUP (IN YARD)</span>
+        </div>
+        <div class="chart-content donut-chart-container">
+            <RadzenChart style="height: 100%; width: 100%;">
+                <RadzenDonutSeries Data="@MetricsService.VehicleTypeBreakup" CategoryProperty="Category" ValueProperty="Value" TotalAngle="360" StartAngle="0" Fills="@vehicleTypeFills">
+                    <TitleTemplate>
+                        <div class="donut-title">
+                            <span class="donut-label">TOTAL</span>
+                            <span class="donut-value">@MetricsService.VehicleTypeBreakup.Sum(d => d.Value)</span>
+                        </div>
+                    </TitleTemplate>
+                    <ChildContent>
+                        <RadzenSeriesDataLabels Visible="true" />
+                    </ChildContent>
+                </RadzenDonutSeries>
+                <RadzenLegend Position="@LegendPosition.Right" />
+            </RadzenChart>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bottom-charts-container {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr 1fr 1fr;
+        gap: 10px;
+        margin-top: 10px;
+        width: 100%;
+        height: 250px;
+    }
+
+    .chart-card {
+        background-color: #121c3a;
+        border: 1px solid #23315e;
+        border-radius: 4px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .chart-header {
+        background-color: #17244a;
+        padding: 8px 12px;
+        font-weight: bold;
+        font-size: 0.85rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #23315e;
+        color: #ffffff;
+    }
+
+    .header-dropdown {
+        font-weight: normal;
+        font-size: 0.8rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+
+    .chart-content {
+        flex: 1;
+        padding: 10px;
+        position: relative;
+    }
+
+    .donut-title {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .donut-label {
+        font-size: 0.7rem;
+        color: #a9b2c3;
+    }
+    
+    .donut-value {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #ffffff;
+    }
+
+    /* Radzen specific overrides for dark mode charts */
+    .rz-chart text {
+        fill: #a9b2c3 !important;
+        font-size: 11px !important;
+    }
+    
+    .rz-chart .rz-legend-text {
+        fill: #ffffff !important;
+    }
+</style>
+
+@code {
+    private string[] delayFills = new [] { "#a92d27", "#a97b15", "#5e387d", "#3b8229" };
+    private string[] inwardOutwardFills = new [] { "#3b8229", "#0c4892" };
+    private string[] vehicleTypeFills = new [] { "#0c4892", "#3b8229", "#a97b15", "#a92d27" };
+
+    protected override void OnInitialized()
+    {
+        MetricsService.OnDataUpdated += UpdateUI;
+    }
+
+    private void UpdateUI()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        MetricsService.OnDataUpdated -= UpdateUI;
+    }
+}

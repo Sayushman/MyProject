@@ -1,0 +1,185 @@
+@using MyProject.Services
+@inject VehicleMetricsService MetricsService
+@implements IDisposable
+
+<div class="dashboard-footer-container">
+    <div class="footer-stats-row">
+        <!-- Safety Compliance -->
+        <div class="footer-stat-item">
+            <RadzenIcon Icon="security" Style="font-size: 1.5rem; color: #3b8229;" />
+            <div class="stat-text">
+                <span class="stat-label">SAFETY COMPLIANCE</span>
+                <span class="stat-value text-success">@MetricsService.SafetyCompliance%</span>
+            </div>
+        </div>
+
+        <!-- Driver Induction Today -->
+        <div class="footer-stat-item">
+            <RadzenIcon Icon="badge" Style="font-size: 1.5rem; color: #a9b2c3;" />
+            <div class="stat-text">
+                <span class="stat-label">DRIVER INDUCTION TODAY</span>
+                <span class="stat-value text-success">@MetricsService.DriverInductionToday</span>
+            </div>
+        </div>
+
+        <!-- Documents Verified -->
+        <div class="footer-stat-item">
+            <RadzenIcon Icon="description" Style="font-size: 1.5rem; color: #a9b2c3;" />
+            <div class="stat-text">
+                <span class="stat-label">DOCUMENTS VERIFIED</span>
+                <span class="stat-value text-success">@MetricsService.DocumentsVerified</span>
+            </div>
+        </div>
+
+        <!-- Average TAT -->
+        <div class="footer-stat-item">
+            <RadzenIcon Icon="schedule" Style="font-size: 1.5rem; color: #a9b2c3;" />
+            <div class="stat-text">
+                <span class="stat-label">AVERAGE TAT (HRS)</span>
+                <span class="stat-value text-info">@MetricsService.AverageTatHrs.ToString("0.00")</span>
+            </div>
+        </div>
+
+        <!-- Max TAT -->
+        <div class="footer-stat-item">
+            <RadzenIcon Icon="local_shipping" Style="font-size: 1.5rem; color: #a9b2c3;" />
+            <div class="stat-text">
+                <span class="stat-label">MAX TAT (HRS)</span>
+                <span class="stat-value text-danger">@MetricsService.MaxTatHrs.ToString("0.00")</span>
+            </div>
+        </div>
+
+        <!-- On Time Performance -->
+        <div class="footer-stat-item">
+            <RadzenIcon Icon="check_circle" Style="font-size: 1.5rem; color: #a9b2c3;" />
+            <div class="stat-text">
+                <span class="stat-label">ON TIME PERFORMANCE</span>
+                <span class="stat-value text-success">@MetricsService.OnTimePerformance%</span>
+            </div>
+        </div>
+
+        <!-- Pending Vehicles -->
+        <div class="footer-stat-item">
+            <RadzenIcon Icon="warning" Style="font-size: 1.5rem; color: #a92d27;" />
+            <div class="stat-text">
+                <span class="stat-label">PENDING VEHICLES</span>
+                <span class="stat-value text-danger">@MetricsService.PendingVehicles</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer-alerts-row">
+        <div class="alerts-marquee">
+            <span class="alert-badge">ALERTS</span>
+            <marquee behavior="scroll" direction="left" scrollamount="4">
+                <span class="alert-item">&bull; 3 Vehicles delayed due to Dock Unavailability</span>
+                <span class="alert-item">&bull; 2 Vehicles pending for Documents</span>
+                <span class="alert-item">&bull; 1 Vehicle waiting for Security Clearance</span>
+            </marquee>
+        </div>
+        <div class="last-updated">
+            Data Last Updated : @DateTime.Now.ToString("hh:mm tt")
+        </div>
+    </div>
+</div>
+
+<style>
+    .dashboard-footer-container {
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+        background-color: #121c3a;
+        border: 1px solid #23315e;
+        border-radius: 4px;
+        width: 100%;
+    }
+
+    .footer-stats-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 15px;
+        border-bottom: 1px solid #23315e;
+    }
+
+    .footer-stat-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .stat-text {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .stat-label {
+        font-size: 0.65rem;
+        font-weight: bold;
+        color: #a9b2c3;
+    }
+
+    .stat-value {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    .text-success { color: #3b8229; }
+    .text-danger { color: #a92d27; }
+    .text-info { color: #4db8ff; }
+
+    .footer-alerts-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 15px;
+        background-color: #0b1120;
+    }
+
+    .alerts-marquee {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        overflow: hidden;
+    }
+
+    .alert-badge {
+        background-color: #a92d27;
+        color: white;
+        padding: 2px 10px;
+        border-radius: 10px;
+        font-size: 0.7rem;
+        font-weight: bold;
+        margin-right: 15px;
+        white-space: nowrap;
+    }
+
+    .alert-item {
+        color: #a9b2c3;
+        font-size: 0.8rem;
+        margin-right: 30px;
+    }
+
+    .last-updated {
+        font-size: 0.75rem;
+        color: #a9b2c3;
+        white-space: nowrap;
+        margin-left: 20px;
+    }
+</style>
+
+@code {
+    protected override void OnInitialized()
+    {
+        MetricsService.OnDataUpdated += UpdateUI;
+    }
+
+    private void UpdateUI()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        MetricsService.OnDataUpdated -= UpdateUI;
+    }
+}

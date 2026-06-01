@@ -1,0 +1,213 @@
+@using Radzen
+@using Radzen.Blazor
+@using MyProject.Models
+@using MyProject.Services
+@inject VehicleMetricsService MetricsService
+@implements IDisposable
+
+<div class="bottom-tables-container">
+    <!-- DOCK STATUS (LIVE) -->
+    <div class="table-card">
+        <div class="table-header">
+            <RadzenIcon Icon="dock" Style="margin-right: 5px; font-size: 1.2rem; color: #a9b2c3;" />
+            <span>DOCK STATUS (LIVE)</span>
+        </div>
+        <div class="table-content">
+            <RadzenDataGrid Data="@MetricsService.DockStatusLive" TItem="DockStatusData" class="custom-datagrid">
+                <Columns>
+                    <RadzenDataGridColumn TItem="DockStatusData" Property="DockNo" Title="Dock No." Width="80px" />
+                    <RadzenDataGridColumn TItem="DockStatusData" Property="VehicleNo" Title="Vehicle No." />
+                    <RadzenDataGridColumn TItem="DockStatusData" Property="Activity" Title="Activity" />
+                    <RadzenDataGridColumn TItem="DockStatusData" Property="InTime" Title="In Time" />
+                    <RadzenDataGridColumn TItem="DockStatusData" Property="OutTime" Title="Out Time" />
+                    <RadzenDataGridColumn TItem="DockStatusData" Property="Status" Title="Status">
+                        <Template Context="data">
+                            <span class="status-badge @GetStatusClass(data.Status)">@data.Status</span>
+                        </Template>
+                    </RadzenDataGridColumn>
+                </Columns>
+            </RadzenDataGrid>
+        </div>
+    </div>
+
+    <!-- VEHICLE TURNAROUND TIME (TAT) -->
+    <div class="table-card">
+        <div class="table-header">
+            <RadzenIcon Icon="timer" Style="margin-right: 5px; font-size: 1.2rem; color: #a9b2c3;" />
+            <span>VEHICLE TURNAROUND TIME (TAT)</span>
+        </div>
+        <div class="table-content">
+            <RadzenDataGrid Data="@MetricsService.VehicleTurnaroundTime" TItem="VehicleTatData" class="custom-datagrid">
+                <Columns>
+                    <RadzenDataGridColumn TItem="VehicleTatData" Property="VehicleNo" Title="Vehicle No." />
+                    <RadzenDataGridColumn TItem="VehicleTatData" Property="EntryTime" Title="Entry Time" />
+                    <RadzenDataGridColumn TItem="VehicleTatData" Property="DockIn" Title="Dock In" />
+                    <RadzenDataGridColumn TItem="VehicleTatData" Property="DockOut" Title="Dock Out" />
+                    <RadzenDataGridColumn TItem="VehicleTatData" Property="ExitTime" Title="Exit Time" />
+                    <RadzenDataGridColumn TItem="VehicleTatData" Property="TatHrs" Title="TAT (Hrs)">
+                        <Template Context="data">
+                            <span class="@GetTatHrsClass(data.TatHrs)">
+                                @FormatTatHrs(data.TatHrs)
+                            </span>
+                        </Template>
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="VehicleTatData" Property="Status" Title="Status">
+                        <Template Context="data">
+                            <span class="@GetTatStatusClass(data.Status)">@data.Status</span>
+                        </Template>
+                    </RadzenDataGridColumn>
+                </Columns>
+            </RadzenDataGrid>
+        </div>
+    </div>
+
+    <!-- TOP DELAYED VEHICLES -->
+    <div class="table-card">
+        <div class="table-header">
+            <RadzenIcon Icon="warning" Style="margin-right: 5px; font-size: 1.2rem; color: #ffca28;" />
+            <span>TOP DELAYED VEHICLES</span>
+        </div>
+        <div class="table-content">
+            <RadzenDataGrid Data="@MetricsService.TopDelayedVehicles" TItem="DelayedVehicleData" class="custom-datagrid">
+                <Columns>
+                    <RadzenDataGridColumn TItem="DelayedVehicleData" Property="VehicleNo" Title="Vehicle No." />
+                    <RadzenDataGridColumn TItem="DelayedVehicleData" Property="DelayReason" Title="Delay Reason" />
+                    <RadzenDataGridColumn TItem="DelayedVehicleData" Property="DelayHrs" Title="Delay (Hrs)" FormatString="{0:0.00}" />
+                    <RadzenDataGridColumn TItem="DelayedVehicleData" Property="Department" Title="Department" />
+                </Columns>
+            </RadzenDataGrid>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bottom-tables-container {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) minmax(0, 1fr);
+        gap: 10px;
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    .table-card {
+        background-color: #121c3a;
+        border: 1px solid #23315e;
+        border-radius: 4px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .table-header {
+        background-color: #17244a;
+        padding: 8px 12px;
+        font-weight: bold;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #23315e;
+        color: #ffffff;
+    }
+
+    .table-content {
+        flex: 1;
+        overflow: hidden;
+    }
+
+    .custom-datagrid {
+        background-color: transparent !important;
+        border: none !important;
+        --rz-grid-header-background-color: #1a2751;
+        --rz-grid-header-color: #a9b2c3;
+        --rz-grid-cell-color: #ffffff;
+        --rz-grid-stripe-background-color: #121c3a;
+        --rz-grid-hover-background-color: #23315e;
+        --rz-grid-border: 1px solid #23315e;
+        --rz-grid-bottom-border: none;
+        font-size: 0.8rem;
+    }
+
+    .custom-datagrid .rz-grid-table thead th {
+        border-bottom: 1px solid #23315e;
+        padding: 6px;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+    }
+
+    .custom-datagrid .rz-grid-table tbody td {
+        border-bottom: 1px solid #23315e;
+        padding: 6px;
+        text-align: center;
+    }
+    
+    .custom-datagrid .rz-grid-table thead th .rz-column-title {
+        text-align: center;
+        width: 100%;
+        display: block;
+    }
+
+    .status-badge {
+        padding: 2px 8px;
+        border-radius: 2px;
+        font-size: 0.7rem;
+        font-weight: bold;
+        display: inline-block;
+    }
+    .status-badge.occupied { background-color: #a92d27; color: white; }
+    .status-badge.in-process { background-color: #a97b15; color: white; }
+    .status-badge.free { background-color: #3b8229; color: white; }
+
+    .text-success { color: #3b8229 !important; font-weight: bold; }
+    .text-danger { color: #a92d27 !important; font-weight: bold; }
+    .text-warning { color: #a97b15 !important; font-weight: bold; }
+</style>
+
+@code {
+    protected override void OnInitialized()
+    {
+        MetricsService.OnDataUpdated += UpdateUI;
+    }
+
+    private void UpdateUI()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        MetricsService.OnDataUpdated -= UpdateUI;
+    }
+
+    private string GetStatusClass(string status)
+    {
+        return status switch
+        {
+            "OCCUPIED" => "occupied",
+            "IN PROCESS" => "in-process",
+            "FREE" => "free",
+            _ => ""
+        };
+    }
+
+    private string GetTatStatusClass(string status)
+    {
+        return status switch
+        {
+            "ON TIME" => "text-success",
+            "DELAYED" => "text-danger",
+            "IN PROCESS" => "text-warning",
+            _ => ""
+        };
+    }
+
+    private string GetTatHrsClass(double tatHrs)
+    {
+        return tatHrs > 2.5 ? "text-danger" : "text-success";
+    }
+
+    private string FormatTatHrs(double tatHrs)
+    {
+        return tatHrs == 0 ? "-" : tatHrs.ToString("0.00");
+    }
+}

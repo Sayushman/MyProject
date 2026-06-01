@@ -268,11 +268,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/aayu/Documents/Projects/ASP-application/MyProject/MyProject.csproj",
+      "projectUniqueName": "/home/aayu/Documents/SIGNODE/Hindalco/MyProject/MyProject.csproj",
       "projectName": "MyProject",
-      "projectPath": "/home/aayu/Documents/Projects/ASP-application/MyProject/MyProject.csproj",
+      "projectPath": "/home/aayu/Documents/SIGNODE/Hindalco/MyProject/MyProject.csproj",
       "packagesPath": "/home/aayu/.nuget/packages/",
-      "outputPath": "/home/aayu/Documents/Projects/ASP-application/MyProject/obj/",
+      "outputPath": "/home/aayu/Documents/SIGNODE/Hindalco/MyProject/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/aayu/.nuget/NuGet/NuGet.Config"

@@ -1,23 +1,44 @@
 @page "/"
 @rendermode InteractiveServer
+@using MyProject.Components.Layout
+@using MyProject.Components.Charts
 
-<PageTitle>Dashboard</PageTitle>
+<PageTitle>YMS Dashboard</PageTitle>
 
-<div class="dashboard">
+<div class="dashboard-wrapper">
+    <Header />
+    <MetricsGrid />
     <ChartsGrid />
+    <BottomTables />
+    <BottomCharts />
+    <DashboardFooter />
 </div>
 
 <style>
     body {
         background-color: #0f0f13;
         color: #ffffff;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Explicit standard fonts for consistent alignment across OS */
         margin: 0;
         padding: 0;
+        overflow-x: hidden;
     }
-    .dashboard {
+    
+    .app-container {
+        width: 100vw;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        background-color: #0b1120; /* Darker unified background */
+    }
+
+    .dashboard-wrapper {
+        width: 100%;
+        max-width: 1920px; /* Target 1080p layout max width */
         padding: 10px;
-        max-width: 1600px;
-        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 0; /* Gaps are handled within the components themselves */
+        box-sizing: border-box;
     }
 </style>
